@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/genericDialogIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_info"
+        android:layout_marginTop="@dimen/margin_padding_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorGray" />
+
+    <TextView
+        android:id="@+id/genericDialogTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_padding_size_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genericDialogIv"
+        tools:text="Título" />
+
+    <TextView
+        android:id="@+id/genericDialogBodyTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:layout_marginEnd="@dimen/margin_padding_size_medium"
+        android:layout_marginTop="@dimen/margin_padding_size_medium"
+        android:fontFamily="@font/google_sans"
+        android:textColor="@color/colorGray"
+        android:textSize="@dimen/text_size_medium"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genericDialogTitleTv"
+        tools:text="TítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítuloTítulo" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/genericDialogCancelBt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/google_sans"
+        android:backgroundTint="@color/colorGray"
+        android:layout_marginStart="@dimen/margin_padding_size_medium"
+        android:layout_marginEnd="@dimen/margin_padding_size_small"
+        android:layout_marginBottom="@dimen/margin_padding_size_medium"
+        android:textAllCaps="false"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/genericDialogConfirmBt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genericDialogBodyTv"
+        tools:text="@string/generic_dialog_action_cancel" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/genericDialogConfirmBt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_padding_size_medium"
+        android:textAllCaps="false"
+        android:textSize="@dimen/text_size_small"
+        android:layout_marginStart="@dimen/margin_padding_size_small"
+        android:layout_marginBottom="@dimen/margin_padding_size_medium"
+        android:fontFamily="@font/google_sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/genericDialogCancelBt"
+        app:layout_constraintTop_toBottomOf="@+id/genericDialogBodyTv"
+        tools:text="@string/generic_dialog_action_ok" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

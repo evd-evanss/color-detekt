@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Color Detekt</string>
+    <string name="color_chooser_bt_title_capture">Capturar</string>
+    <string name="color_chooser_bt_title_clear">Limpar</string>
+    <string name="color_chooser_hex_value">Valor HEX: %s</string>
+    <string name="color_chooser_rgb_value">Valor R: %d G: %d B: %d</string>
+    <string name="color_chooser_all_values">Informações sobre a cor:\n%s\nY: %d U: %d V: %d\nR: %d G: %d B: %d</string>
+    <string name="copy_button_text">Copiar</string>
+
+    <!-- color-activity-->
+    <string name="color_activity_copy">Copiado para área de transferência</string>
+
+    <!-- generic_dialog -->
+    <string name="generic_dialog_title">Permissões Necessárias</string>
+    <string name="generic_dialog_body">Este aplicativo utilizará sua câmera para analisar as cores através das imagens,
+    para isso precisamos que você nos permita utilizá-la</string>
+    <string name="generic_dialog_action_ok">Conceder</string>
+    <string name="generic_dialog_action_cancel">Cancelar</string>
+
+</resources>

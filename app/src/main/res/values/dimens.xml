@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--ColorChooser-->
+    <dimen name="colorChooserSize">100dp</dimen>
+
+
+
+    <!-- Margin & Padding, 8 dp baseline, https://material.io/design/layout/understanding-layout.html -->
+    <dimen name="margin_padding_size_small">8dp</dimen>
+    <dimen name="margin_padding_size_medium">16dp</dimen>
+    <dimen name="margin_padding_size_large">24dp</dimen>
+    <dimen name="margin_padding_size_xlarge">32dp</dimen>
+    <dimen name="margin_padding_size_xxlarge">40dp</dimen>
+
+    <!-- Touch Target Size, https://material.io/design/usability/accessibility.html#layout-and-typography -->
+    <dimen name="standard_touch_size">48dp</dimen>
+
+    <!-- Font sizes, https://material.io/design/typography/the-type-system.html#type-scale -->
+    <dimen name="text_size_micro">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_xlarge">34sp</dimen>
+    <dimen name="text_size_xxlarge">45sp</dimen>
+    <dimen name="text_size_xxxlarge">56sp</dimen>
+
+    <dimen name="margin_xsmall">16dp</dimen>
+    <dimen name="margin_small_x">26dp</dimen>
+    <dimen name="margin_small">32dp</dimen>
+    <dimen name="margin_medium">48dp</dimen>
+    <dimen name="margin_large">64dp</dimen>
+    <dimen name="margin_xlarge">92dp</dimen>
+
+    <dimen name="spacing_small">4dp</dimen>
+    <dimen name="spacing_medium">8dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+
+    <dimen name="stroke_small">4dp</dimen>
+    <dimen name="stroke_medium">8dp</dimen>
+    <dimen name="stroke_large">12dp</dimen>
+
+    <dimen name="round_button_small">32dp</dimen>
+    <dimen name="round_button_small_x">48dp</dimen>
+    <dimen name="round_button_medium">64dp</dimen>
+    <dimen name="round_button_medium_x">74dp</dimen>
+    <dimen name="round_button_large">92dp</dimen>
+
+    <dimen name="rect_button_margin">12dp</dimen>
+    <dimen name="rect_button_width">80dp</dimen>
+    <dimen name="rect_button_height">24dp</dimen>
+    <dimen name="shutter_button_margin">80dp</dimen>
+
+    <!-- BottomAppBar -->
+    <dimen name="bottom_app_bar_height">56dp</dimen>
+    <dimen name="bottom_app_bar_fab_cradle_corner_radius">32dp</dimen>
+    <dimen name="bottom_app_bar_fab_cradle_margin">8dp</dimen>
+    <dimen name="bottom_app_bar_logo_size">32dp</dimen>
+
+    <!-- BottomNavigationDrawer -->
+    <dimen name="navigation_drawer_profile_image_size">48dp</dimen>
+    <dimen name="navigation_drawer_profile_image_size_padded">32dp</dimen>
+    <dimen name="navigation_drawer_menu_item_height">56dp</dimen>
+
+    <!-- Preference -->
+    <dimen name="pref_height">80dp</dimen>
+    <dimen name="pref_height_half">40dp</dimen>
+    <dimen name="pref_image_width">60dp</dimen>
+    <dimen name="pref_image_margin">10dp</dimen>
+    <dimen name="pref_image_padding">18dp</dimen>
+
+    <!-- 2dp sub grid -->
+    <dimen name="grid_0_25">2dp</dimen>
+    <dimen name="grid_0_5">4dp</dimen>
+
+    <!-- 5dp grid -->
+    <dimen name="grid_1_5">5dp</dimen>
+    <dimen name="grid_2_10">10dp</dimen>
+
+    <!-- 8dp grid -->
+    <dimen name="grid_1">8dp</dimen>
+    <dimen name="grid_2">16dp</dimen>
+    <dimen name="grid_3">24dp</dimen>
+    <dimen name="grid_4">32dp</dimen>
+</resources>
