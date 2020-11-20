@@ -81,4 +81,6 @@
     <dimen name="grid_2">16dp</dimen>
     <dimen name="grid_3">24dp</dimen>
     <dimen name="grid_4">32dp</dimen>
+    <dimen name="target_size">50dp</dimen>
+    <dimen name="round_focus">15dp</dimen>
 </resources>

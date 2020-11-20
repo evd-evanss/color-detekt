@@ -17,4 +17,8 @@
     <string name="generic_dialog_action_ok">Conceder</string>
     <string name="generic_dialog_action_cancel">Cancelar</string>
 
+    <!-- balloon tips -->
+    <string name="tip_of_target_color">Aponte a camera para uma cor</string>
+    <string name="tip_of_create_list">Crie uma lista de cores.</string>
+
 </resources>

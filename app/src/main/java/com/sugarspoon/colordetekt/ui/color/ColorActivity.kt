@@ -6,15 +6,16 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ScaleGestureDetector
-import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.skydoves.balloon.Balloon
 import com.sugarspoon.colordetekt.R
 import com.sugarspoon.colordetekt.data.PreferencesHelper
 import com.sugarspoon.colordetekt.model.ColorAnalyzer
@@ -22,6 +23,7 @@ import com.sugarspoon.colordetekt.model.ColorChosen
 import com.sugarspoon.colordetekt.ui.BaseActivity
 import com.sugarspoon.colordetekt.ui.widget.GenericDialog
 import com.sugarspoon.colordetekt.utils.PermissionDispatcherHelper
+import com.sugarspoon.colordetekt.utils.BalloonFactory
 import com.sugarspoon.housebook.extensions.setVisible
 import com.sugarspoon.housebook.extensions.setup
 import com.sugarspoon.housebook.extensions.snack
@@ -37,7 +39,7 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
 
     private val factory = ColorViewModel.Factory()
     private val viewModel by viewModels<ColorViewModel> { factory }
-    private var preferencesHelper : PreferencesHelper? = null
+    private var preferencesHelper: PreferencesHelper? = null
     private var colorChosen: ColorChosen = ColorChosen.createEmpty()
     private lateinit var preview: Preview
     private val cameraExecutor = Executors.newSingleThreadExecutor()
@@ -65,6 +67,13 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
             }
         )
     }
+
+    private val balloonFactory: BalloonFactory by lazy {
+        BalloonFactory(context = this, fragmentLifeCycle = this)
+    }
+
+    private var balloonTipTarget: Balloon? = null
+    private var balloonTipAdd: Balloon? = null
 
     private val permissionDispatcherHelper by lazy {
         PermissionDispatcherHelper(
@@ -116,10 +125,27 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionDispatcherHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionDispatcherHelper.onRequestPermissionsResult(requestCode,
+            permissions,
+            grantResults)
     }
 
-    private fun setupUi() = view?.let{ root ->
+    private fun setupBalloons() {
+        balloonTipTarget = balloonFactory.create(R.string.tip_of_target_color)
+        balloonTipTarget?.showAlignTop(choseColorTargetIv)
+
+        balloonTipTarget?.setOnBalloonClickListener {
+            balloonTipAdd = balloonFactory.create(R.string.tip_of_create_list)
+            balloonTipAdd?.showAlignTop(choseColorBt)
+            balloonTipTarget?.dismiss()
+        }
+
+        balloonTipAdd?.setOnBalloonClickListener {
+            balloonTipAdd?.dismiss()
+        }
+    }
+
+    private fun setupUi() = view?.let { root ->
         root.choseColorBt.isEnabled = false
         colorChosen.run {
             root.colorNameTv.text =
@@ -136,11 +162,26 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
             adapter = adapter,
             hasFixedSize = true
         )
-        root.zoomIv.setOnClickListener {
-            enableZoomFeature(true)
-        }
+
         root.bottomAppBar.replaceMenu(R.menu.menu)
         setSupportActionBar(root.bottomAppBar)
+        var currentZoomRatio = INITIAL_ZOOM
+        zoomIn.setOnClickListener {
+            if (currentZoomRatio < MAXIMUM_ZOOM) {
+                    currentZoomRatio += RATE_ZOOM
+                    setZoom(currentZoomRatio)
+            }
+        }
+        zoomOut.setOnClickListener {
+            if (currentZoomRatio > INITIAL_ZOOM) {
+                currentZoomRatio -= RATE_ZOOM
+                setZoom(currentZoomRatio)
+            }
+        }
+    }
+
+    private fun setZoom(currentZoomRatio: Float) {
+        camera?.cameraControl?.setZoomRatio(currentZoomRatio * DELTA)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -203,13 +244,13 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
 
     private fun bindCameraUseCases(permissionsGranted: Boolean) {
         loadingPb.setVisible(true)
-        if(permissionsGranted) {
+        if (permissionsGranted) {
             view?.let { root ->
                 val cameraSelector = CameraSelector.Builder()
                     .requireLensFacing(lensFacing).build()
                 val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
-                cameraProviderFuture.addListener( Runnable {
+                cameraProviderFuture.addListener(Runnable {
                     val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
                     previewBuilder = Preview.Builder()
                     preview = previewBuilder?.build()!!
@@ -255,38 +296,19 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun enableZoomFeature(enable: Boolean = false) = view?.imagePreview?.run {
-        val listener = object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-            override fun onScale(detector: ScaleGestureDetector): Boolean {
-                val currentZoomRatio: Float = camera?.cameraInfo?.zoomState?.value?.zoomRatio ?: 0F
-                val delta = detector.scaleFactor
-                camera?.cameraControl?.setZoomRatio(currentZoomRatio * delta)
-                return true
-            }
-        }
-        val scaleGestureDetector = ScaleGestureDetector(context, listener)
-        if(enable) {
-            this.setOnTouchListener { _, event ->
-                scaleGestureDetector.onTouchEvent(event)
-                return@setOnTouchListener true
-            }
-        } else {
-            this.setOnTouchListener(null)
-        }
-    }
 
     private fun toggleFlash(isEnable: Boolean) {
         camera?.cameraControl?.enableTorch(isEnable)
         flashIv.setImageDrawable(ContextCompat.getDrawable(
             this,
-            if(isEnable) R.drawable.ic_flash_off else R.drawable.ic_flash_on
+            if (isEnable) R.drawable.ic_flash_off else R.drawable.ic_flash_on
         ))
     }
 
     override fun onAllPermissionsGranted(requestCode: Int) {
-        if(requestCode == REQUEST_CODE_PERMISSIONS) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
             preferencesHelper?.setPermissionsGranted(true)
+            setupBalloons()
             bindCameraUseCases(preferencesHelper?.getPermissionsGranted ?: false)
         }
     }
@@ -308,5 +330,9 @@ class MainActivity : BaseActivity(), PermissionDispatcherHelper.OnPermissionResu
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val INITIAL_ZOOM = 1f
+        private const val MAXIMUM_ZOOM = 5f
+        private const val RATE_ZOOM = 0.20f
+        private const val DELTA = 1
     }
 }
