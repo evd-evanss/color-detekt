@@ -11,4 +11,5 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/rainbow"
        />
+
 </com.google.android.material.appbar.AppBarLayout>

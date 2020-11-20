@@ -6,6 +6,19 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+def MAJOR = 1
+def MINOR = 0
+def PATCH = 2
+def HOTFIX = 0
+
+def getVersionName = {
+    return "$MAJOR.$MINOR.$PATCH"
+}
+
+def getVersionCode = {
+    return 10000000 * MAJOR + 100000 * MINOR + 100 * PATCH + HOTFIX
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -14,8 +27,8 @@ android {
         applicationId "com.sugarspoon.colordetekt"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1"
+        versionCode getVersionCode()
+        versionName getVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -82,4 +95,7 @@ dependencies {
     implementation 'com.github.jorgecastilloprz:fabprogresscircle:1.01@aar'
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+
+    //SkyDoves ballon
+    implementation "com.github.skydoves:balloon:1.2.5"
 }
